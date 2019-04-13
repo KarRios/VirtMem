@@ -16,7 +16,7 @@
 #define FILE_ERROR 2
 #define BUFLEN 256
 #define FRAME_SIZE  256
-#define TLB_SIZE 1000
+#define TLB_SIZE 16
 
 int pageTableNumbers[FRAME_SIZE];  // array to hold the page numbers in the page table
 int pageTableFrames[FRAME_SIZE];   // array to hold the frame numbers in the page table
