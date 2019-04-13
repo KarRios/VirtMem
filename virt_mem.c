@@ -18,19 +18,7 @@
 #define FRAME_SIZE  256
 #define TLB_SIZE 16
 
-int pageTableNumbers[PAGE_TABLE_SIZE];  // array to hold the page numbers in the page table
-int pageTableFrames[PAGE_TABLE_SIZE];   // array to hold the frame numbers in the page table
 
-int TLBPageNumber[TLB_SIZE];  // array to hold the page numbers in the TLB
-int TLBFrameNumber[TLB_SIZE]; // array to hold the frame numbers in the TLB
-
-int physicalMemory[FRAME_SIZE][FRAME_SIZE]; // physical memory 2D array
-
-int pageFaults = 0;   // counter to track page faults
-int TLBHits = 0;      // counter to track TLB hits
-int firstAvailableFrame = 0;  // counter to track the first available frame
-int firstAvailablePageTableNumber = 0;  // counter to track the first available page table entry
-int numberOfTLBEntries = 0; 
 
 //-------------------------------------------------------------------
 unsigned int getpage(size_t x) { return (0xff00 & x) >> 8; }
@@ -48,7 +36,7 @@ void pagetable(unsigned int x,unsigned int y){
     int i;  // look through TLB for a match
     for(i = 0; i < TLB_SIZE; i++){
         if(TLBPageNumber[i] == x){   
-            frameNumber = TLBFrameNumber[i];  
+            y = TLBFrameNumber[i];  
                 TLBHits++;               
         }
     }
@@ -151,7 +139,20 @@ int main(int argc, const char * argv[]) {
   unsigned int logic_add;                  // read from file address.txt
   unsigned int virt_add, phys_add, value;  // read from file correct.txt
   unsigned int numberOfTranslatedAddresses = 0;
+  int pageFaults = 0;   // counter to track page faults
+  int TLBHits = 0;      // counter to track TLB hits
+  int firstAvailableFrame = 0; 
+  int firstAvailablePageTableNumber = 0;  
+  int numberOfTLBEntries = 0; 
   
+  int physicalMemory[FRAME_SIZE][FRAME_SIZE]; // physical memory 2D array
+  int pageTableNumbers[PAGE_TABLE_SIZE];  // array to hold the page numbers in the page table
+  int pageTableFrames[PAGE_TABLE_SIZE];   // array to hold the frame numbers in the page table
+
+  int TLBPageNumber[TLB_SIZE];  // array to hold the page numbers in the TLB
+  int TLBFrameNumber[TLB_SIZE]; // array to hold the frame numbers in the TLB
+
+  int physicalMemory[FRAME_SIZE][FRAME_SIZE]; // physical memory 2D array
 
       // not quite correct -- should search page table before creating a new entry
       //   e.g., address # 25 from addresses.txt will fail the assertion
