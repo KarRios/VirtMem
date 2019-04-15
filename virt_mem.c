@@ -96,6 +96,7 @@ int main(int argc, const char * argv[]) {
   fclose(fadd);
   fclose(backing_store);
 
+  
   printf("Number of translated addresses = %d\n", numberOfTranslatedAddresses);
   double pfRate = pageFaults / (double)numberOfTranslatedAddresses;
   double TLBRate = TLBHits / (double)numberOfTranslatedAddresses;
@@ -104,6 +105,7 @@ int main(int argc, const char * argv[]) {
   printf("Page Fault Rate = %.3f\n",pfRate);
   printf("TLB Hits = %d\n", TLBHits);
   printf("TLB Hit Rate = %.3f\n", TLBRate);
+
   
   return 0;
 }
